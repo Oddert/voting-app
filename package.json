@@ -1,0 +1,30 @@
+{
+  "name": "voting-app",
+  "version": "1.0.0",
+  "description": "A full stack voting app made for the Free Code Camp full stack challenges",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oddert/voting-app.git"
+  },
+  "author": "Robyn Veitch",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Oddert/voting-app/issues"
+  },
+  "homepage": "https://github.com/Oddert/voting-app#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "ejs": "^2.5.9",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "method-override": "^2.3.10",
+    "mongoose": "^5.0.16",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^5.0.0"
+  }
+}

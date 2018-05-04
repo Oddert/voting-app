@@ -1,0 +1,144 @@
+.main {
+    margin-top: 50px;
+}
+
+.inline {
+    display: inline;
+}
+
+.no-margin {
+    margin: 0px !important;
+}
+
+.pull-right {
+    text-align: right;
+}
+
+input[type="radio"] {
+    background-color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 30px;
+    margin-top: -1px;
+    vertical-align: middle;
+}
+
+label {
+    font-size: 14px;
+}
+
+.segment {
+    transition: 0.2s linear;
+}
+.segment:hover {
+    border: 1px solid #DF86FC;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12), 0 2px 10px 0 rgba(34,36,38,.15);
+    transform: scale(1.0035);
+}
+
+.plain, .plain:hover {
+    text-decoration: none;
+    color: #2d3e50;
+}
+
+.main-list em, .main-list .fa {
+    float: right;
+}
+
+.main-list .fa {
+    margin-left: 20px;
+}
+
+.poll_list h1 {
+    font-family: 'Poiret One', 'Open Sans', 'Josefin Sans';
+}
+
+.poll_show-title {
+    padding: 30px 0px 0px 0px;
+}
+
+.poll_show-subTitle {
+    padding: 10px 0px 20px 0px;
+}
+
+.poll_show-p {
+    margin-bottom: 40px;
+}
+
+.poll_show-VoteFrom-button {
+    margin: 14px 0px;
+}
+
+.ui.input {
+    width: 100%;
+}
+
+.poll_new h1 {
+    margin: 40px 0px 40px 0px;
+}
+
+.poll_new input {
+    width: 100%;
+}
+
+.poll_new .description {
+    height: 60px;
+}
+
+.poll_new button {
+    width: 100%;
+}
+
+.user_login h1 {
+    margin: 40px 0px 40px 0px;
+}
+
+.user_login .ui.input {
+    margin: 0px 0px 20px 0px;
+}
+
+.user_login input {
+    width: 100%;
+}
+
+.user_login button {
+    width: 100%;
+}
+
+.user_index h1 {
+    margin: 50px;
+}
+
+.hidden {
+    display: none;
+}
+
+.poll_edit h1 {
+    margin: 10px 0px 20px 0px;
+}
+
+.poll_edit .input.description {
+    margin-bottom: 20px;
+}
+
+.poll_edit {
+    margin-bottom: 100px;
+}
+
+.poll_edit .button.submit {
+    display: inline;
+    position: relative;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.poll_edit .button.addOpt {
+    display: inline;
+    position: relative;
+    top: -30px;
+}
+
+.poll_edit .input {
+    margin: 10px 0px;
+}

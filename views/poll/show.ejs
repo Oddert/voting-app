@@ -1,0 +1,183 @@
+<% include ../partials/header %>
+
+<div class="main container">
+
+    <div class="row">
+        <div class="col=lg-2 col-md-2 col-sm-2 col-xs-12"></div>
+        
+        <div class="col=lg-8 col-md-8 col-sm-8 col-xs-12">
+            <h1 class="text-center poll_show-title"><%= poll.name %></h1>
+            <h3 class="text-center poll_show-subTitle" >by <a href="/user/<%= poll.author.username %>"><%= poll.author.username %></a></h3>
+            <p class="poll_show-p"><%= poll.description %></p>
+        </div>
+    </div>
+        
+    <div class="row">
+        <div class="col=lg-6 col-md-6 col-sm-6 col-xs-12" id="input-col">
+            
+            <% if (isAuthor) { %>
+                    <a href="/polls/<%= poll._id %>/edit" class="ui inverted orange button" >Edit Poll</a>
+                    <form action="/polls/<%= poll._id %>?_method=DELETE" method="POST" class="inline" >
+                        <button class="ui inverted red button" >Delete Poll</button>
+                    </form>
+            <% } %>
+            
+            <form action="/polls/<%= poll._id %>?_method=PUT" method="POST" class="poll_show-voteForm" >
+                <% poll.options.forEach(function (each, index) { %>
+                    <div class="ui segment no-margin">
+                        <input type="radio" name="voteSelection" value="<%= each.text %>" />   
+                        <label class="no-margin" ><%= each.text %>: <%= each.votes %> Votes</label>
+                    </div>
+                <% }); %>
+                <div class="text-center poll_show-VoteFrom-button">
+                    <button class="ui teal massive button" >Add Vote!</button>
+                </div>
+            </form>
+            
+            <% if (currentUser) { %>
+                <form action="/polls/<%= poll._id %>?_method=PUT" method="POST">
+                    <div class="ui input">
+                        <input type="text" name="addAnOption" placeholder="Your custom option" />
+                        <button class="ui green button" >Add a new option!</button>
+                    </div>
+                </form>
+            <% } %>
+            
+        </div>
+        
+        
+        <div class="col=lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
+            <div class="chartRoot"></div>
+        </div>
+        
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<script>
+
+function renderGraph () {
+    
+    // console.log("Rendering graph");
+    
+    d3.select('.chartRoot')
+        .selectAll('svg')
+        .remove();
+    
+    var testData = <%-JSON.stringify(poll)%>;
+    
+    var dataWithNames = testData.options;
+    
+    var data = testData.options.map(function (each) {
+        return each.votes;
+    });
+    
+    // console.log(dataWithNames);
+    
+    var width = $('#input-col').width(),
+        height = $('#input-col').height(),
+        radius = Math.min(width, height) / 2
+
+    var svg = d3.select('.chartRoot')
+                    .append('svg')
+                    .attr("width", width)
+                    .attr("height", height)
+                    .attr("transform", "translate(0, 30)")
+                    // .style("border", "1px solid black")
+                    
+    var canvas = svg.append('g')
+                    .attr("transform", "translate(" + (width/2) + ", " + (height/2) + ")" );
+                    
+    var color = d3.scaleOrdinal()
+                    .range(["#c1392b", "#27ae61", "#297fb8", "#f39c11", "#8d44ad", "#16a086", "#d25400", "#bec3c7",
+                            "#e84c3d", "#2dcc70", "#3598db", "#f1c40f", "#9a59b5", "#1bbc9b", "#e67f22", "#95a5a5"]);
+    
+    var arc = d3.arc()
+                .outerRadius(radius - 10)
+                .innerRadius(0)//radius-140);
+                
+    var labelArc = d3.arc()
+                    .outerRadius(radius -40)
+                    .innerRadius(radius - 40);
+                    
+    var pie = d3.pie()
+                .sort(null)
+                .value(function (d) { return d.votes; });
+                
+    var g = canvas.selectAll('.arc')
+                .data(pie(dataWithNames))
+                .enter()
+                .append('g')
+                .attr("class", "arc")
+                
+    g.append('path')
+        .attr("d", arc)
+        .style("fill", function (d) { return color(d.data.votes); })
+        
+        .on("mouseover", function (d) {
+            
+            toolTipText.text(d.data.text + " (" + d.data.votes + ")");
+            var calcLength = d.data.text.length;
+            var widthCalc =  calcLength < 8 ? 100 : (calcLength * 13);
+            toolTipBack.attr("width", widthCalc)
+            
+            toolTip.style("display", null);
+            var xPos = d3.mouse(this)[0] - ((widthCalc-20)/2);
+            var yPos = d3.mouse(this)[1] - 10;
+            toolTip.attr("transform", "translate(" + xPos + ", " + yPos + ")" );
+            
+            d3.select(this).attr("transform", "scale(1.03)");
+            
+        })
+        .on("mousemove", function (d) {
+            toolTip.style("display", null)
+            var calcLength = d.data.text.length;
+            var widthCalc =  calcLength < 8 ? 100 : (calcLength * 13);
+            var xPos = d3.mouse(this)[0] - ((widthCalc-20)/2);
+            var yPos = d3.mouse(this)[1] - 10;
+            toolTip.attr("transform", "translate(" + xPos + ", " + yPos + ")" )
+        })
+        .on("mouseout", function () {
+            toolTip.style("display", "none");
+            d3.select(this).attr("transform", "scale(1)")
+        });
+        
+    g.append("text")
+        .attr("transform", function (d) { return "translate(" + labelArc.centroid(d) + ")"; })
+        .attr("dy", ".35em")
+        .text(function (d) { return d.data.votes; });
+        
+    var toolTip = canvas.append('g')
+                        .style("display", "none");
+    
+    var toolTipBack = toolTip.append('rect')
+                            .attr("width", "200px")
+                            .attr("height", "30px")
+                            .attr("rx", "10")
+                            .attr("ry", "10")
+                            .attr("x", "-10")
+                            .attr("fill", "white")
+                            .attr("y", -35)
+                            
+    var toolTipText = toolTip.append('text')
+                                .text("Hello World!")
+                                .attr("y", -15);
+                
+}
+
+renderGraph();
+
+$(window).resize(function() {
+    renderGraph();
+});
+
+</script>
+
+<% include ../partials/footer %>

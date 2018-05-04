@@ -1,0 +1,24 @@
+<% include ../partials/header %>
+
+    <div class="main container poll_new">
+        <h1 class="text-center">Add a new poll</h1>
+        
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12"></div>
+        
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 offset-lg-2">
+            <form action="/polls/new" method="POST">
+                <div class="ui input">
+                    <input type="text" name="newPollName" placeholder="New Poll Name" required />
+                </div>
+                <div class="ui input">
+                    <input type="text" name="newPollDescription" placeholder="Description" class="description" required />
+                </div>
+                <div class="ui input">
+                    <input type="text" name="newPollOptionsRaw" placeholder="Options seperated by comma and space" required />
+                </div>
+                <button class="ui button massive teal">Add Poll!</button>
+            </form>
+        </div>
+    </div>
+    
+<% include ../partials/footer %>

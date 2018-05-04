@@ -1,0 +1,45 @@
+<% include ../partials/header %>
+
+<div class="main container poll_edit">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12"></div>
+        
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 offset-lg-2">
+        
+        <h1>Edit the poll "<%= poll.name %>"</h1>
+        
+        <form action="/polls/<%= poll._id %>?_method=PUT" method="POST">
+            
+            <div class="ui input">
+                <input type="text" name="editedPoll[name]" value="<%= poll.name %>" />
+            </div>
+            <div class="ui input description">
+                <input type="text" name="editedPoll[description]" value="<%= poll.description %>" />
+            </div>
+            
+            <% poll.options.forEach(function (each) { %>
+            
+                <div class="ui segment tiny no-margin">
+                    <input type="checkbox" name="editedPoll[options][<%= each.text %>]" value="<%= each.votes %>" checked /> 
+                    <label class="no-margin"><%= each.text %> (<%= each.votes %> votes)</label>
+                </div>
+                
+            <% }); %>
+            
+            <div class="newOptionsContainer"></div>
+            <button class="ui button massive orange inverted submit">Submit Changes</button>
+        </form>
+        
+        <button class="ui button big teal addOpt" onClick="testFunc()">Add Poll Option</button>
+    
+    </div>
+</div>
+    
+    <script>
+    var addedOptions = 1;
+        function testFunc() {
+            $('.newOptionsContainer').append('<div class="ui input"><input type="text" name=editedPoll[additionalOption][' + addedOptions + '] placeholder="Add a new Option" /></div>')
+            addedOptions += 1;
+        }
+    </script>
+    
+<% include ../partials/footer %>

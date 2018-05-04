@@ -1,0 +1,21 @@
+<% include ./partials/header %>
+    <div class="main container user_login">
+        <h1 class="text-center">Make an Account</h1>
+        
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"></div>
+        
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 offset-lg-2">
+            
+            <form action="/register" method="POST">
+                <div class="ui input">
+                    <input type="text" name="username" placeholder="username" />
+                </div>
+                <div class="ui input">
+                    <input type="password" name="password" placeholder="password" />
+                </div>
+                <button class="ui button massive teal">Signup!</button>
+            </form>
+            
+        </div>
+    </div>
+<% include ./partials/footer %>

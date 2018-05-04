@@ -1,0 +1,30 @@
+<% include ../partials/header %>
+
+<div class="main container poll_list">
+    
+    <div class="jumbotron text-center">
+
+        <h1>View the most recent polls</h1>
+        
+        <p>Or start a new one!</p>
+        
+        <a href="/polls/new" class="ui inverted massive purple button">Add a new poll</a>
+    
+    </div>
+    
+    <hr>
+    
+    <% polls.forEach(function (each, index) { %>
+        <a href="/polls/<%= each._id %>" class="plain" >
+            <p class="ui segment huge main-list">
+                <strong>
+                    <%= each.name %>
+                </strong>
+                <em>-by <%= each.author.username %></em>
+            </p>
+        </a>
+    <% }); %>
+
+</div>
+
+<% include ../partials/footer %>

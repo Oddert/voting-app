@@ -1,0 +1,62 @@
+<% include ../partials/header %>
+
+    <div class="main container user_index">
+        
+        <% if (isAuthor) { %>
+            <h1 class="text-center">Welcome to your profile page, <%= displayUser.username %>!</h1>
+        <% } else { %>
+            <h1 class="text-center">View <%= displayUser.username %>'s polls</h1>
+        <% } %>
+        
+        
+        <% displayUser.polls.forEach(function (each, index) { %>
+            <p class="ui segment huge main-list">
+                <a href="/polls/<%= each._id %>" class="plain" >
+                    <strong>
+                        <%= each.name %>
+                    </strong>
+                </a>
+                
+                <% var twitterLink = 'https://twitter.com/intent/tweet?text=Vote on the poll: "' + each.name + '" here! https://the-odd-project-oddert.c9users.io/polls/' + each._id %>
+                <a href="<%= twitterLink %>" target="_blank">
+                    <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                
+                <a href='#' id="copy" onClick="toggleCopy(<%= index %>)" >
+                    <i class="fa fa-link fa-2x"></i>
+                </a>
+                
+                <% if (!isAuthor) { %> 
+                    <a href="/polls/<%= each._id %>" class="plain" >
+                        <em>-by <%= each.author.username %></em>
+                    </a>
+                <% } %>
+                
+            </p>
+            <% var id = "copylink_" + index %>
+            <p class="ui segment huge hidden" id="<%= id %>">
+                https://the-odd-project-oddert.c9users.io/polls/<%= each._id %>
+            </p>
+        <% }); %>
+        
+        <script>
+            function toggleCopy(inboundId) {
+                var compId = "#copylink_" + inboundId;
+                if ($(compId).hasClass('hidden')) {
+                    $(compId).removeClass("hidden");
+                } else {
+                    $(compId).addClass("hidden");
+                }
+            }
+        </script>
+        
+    </div>
+    
+    <script>
+        function copyClipboard() {
+            console.log("Hello copy to clipboard!");
+            
+        }
+    </script>
+        
+<% include ../partials/footer %>
