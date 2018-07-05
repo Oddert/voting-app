@@ -17,7 +17,7 @@ var indexRoutes     = require('./routes/index'),
 var seedDB          = require("./seed");
 
 mongoose.connect('mongodb://localhost/voting_app');
-// mongoose.connect('mongodb://Oddert:microSon0fShaun528@ds259499.mlab.com:59499/freecodecamp-playground');
+// mongoose.connect('mongodb://' + MADE_WITH + ':' + SECRET + '@ds259499.mlab.com:59499/freecodecamp-playground');
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
