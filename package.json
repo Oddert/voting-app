@@ -11,7 +11,7 @@
     "url": "git+https://github.com/Oddert/voting-app.git"
   },
   "author": "Robyn Veitch",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Oddert/voting-app/issues"
   },
