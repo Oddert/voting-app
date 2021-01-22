@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 var express         = require('express'),
     app             = express(),
     bodyParser      = require('body-parser'),
@@ -16,8 +18,7 @@ var indexRoutes     = require('./routes/index'),
     
 var seedDB          = require("./seed");
 
-mongoose.connect('mongodb://localhost/voting_app');
-// mongoose.connect('mongodb://' + MADE_WITH + ':' + SECRET + '@ds259499.mlab.com:59499/freecodecamp-playground');
+mongoose.connect(process.env.DATABASE);
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -32,7 +33,7 @@ app.use(methodOverride('_method'));
 //========== Passport Setup =========================
 
 app.use(expressSession({
-    secret: "Were you expecting a joke? A funny me-me?? Do you think this is a vessal for your own lamented coping mechanism for depresssion and existential dread?????",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false
 }));
